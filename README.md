@@ -16,7 +16,7 @@ ou, si cela échoue :
 
 ATTENTION : N'oubliez pas de spécifier les différents TOKENS et clé d'API dans le code avant de démarrer le bot !
 
-
+-------------------------------------------------------------------------------------------------
 
 ENGLISH / ANGLAIS :
 
