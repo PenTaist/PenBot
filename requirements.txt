@@ -1,0 +1,7 @@
+discord.py
+aiohttp
+json
+random
+blagues_api
+logging
+time
