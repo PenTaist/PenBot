@@ -40,6 +40,77 @@ async def on_member_join(member):
     embed.add_field(name="Afin d'accèder à l'intégralité du serveur", value="Veuillez vérifier votre compte dans le salon de vérification puis accepter le règlement dans la salon des règles", inline=False)
     await member.send(embed=embed)
 
+#Ajout des réactions dans les salons annonces et events
+@penbot.event
+async def on_message(message):
+    # Emojis messages annonces
+    emoji_annonces1 = '📢'
+    emoji_annonces2 = '🤣'
+    emoji_annonces3 = '🤑'
+    emoji_annonces4 = '🤖'
+    emoji_annonces5 = '👨‍💻'
+    emoji_annonces6 = '🤘'
+    emoji_annonces7 = '👀'
+    emoji_annonces8 = '⚽'
+    emoji_annonces9 = '🎥'
+    emoji_annonces10 = '😻'
+
+    #Emojis messages events
+    emoji_event1 = '🥳'
+    emoji_event2 = '😎'
+    emoji_event3 = '😍'
+    emoji_event4 = '🤯'
+    emoji_event5 = '👽'
+    emoji_event6 = '👾'
+    emoji_event7 = '💎'
+    emoji_event8 = '👋'
+    emoji_event9 = '🎱'
+    emoji_event10 = '📀'
+
+    # Réactions messages dans le salon annonces
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces1)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces2)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces3)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces4)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces5)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces6)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces7)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces8)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces9)
+    if message.channel.id == 1000413320874045501:
+        await message.add_reaction(emoji_annonces10)
+
+    #Réactions messages dans le salon events
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event1)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event2)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event3)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event4)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event5)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event6)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event7)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event8)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event9)
+    if message.channel.id == 1000413346476068907:
+        await message.add_reaction(emoji_event10)
+
 #Messages d'erreur en cas de commande incorrecte ou de permissions inssufisantes
 @penbot.event
 async def on_command_error(ctx, error):
