@@ -12,7 +12,7 @@ from time import gmtime, strftime
 #Déclaration des variables essentielles au lancement du bot
 #Intents
 penbot_intents = discord.Intents.all()
-#Création de l'activité du bot (Ecoute Internet)
+#Création de l'activité du bot (Stream Internet)
 activity = discord.Activity(type=discord.ActivityType.streaming, name="Internet", url='https://twitch.tv/penbot')
 #Création de l'instance
 penbot = commands.Bot(command_prefix="pb$", description="Coded by PenTaist#8589", activity=activity ,intents=penbot_intents)
