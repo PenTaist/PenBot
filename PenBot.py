@@ -39,6 +39,11 @@ async def on_member_join(member):
     embed = discord.Embed(title="Bienvenue sur le serveur PenTaist - Community !", color=discord.Color.blue())
     embed.add_field(name="Afin d'accèder à l'intégralité du serveur", value="Veuillez vérifier votre compte dans le salon de vérification puis accepter le règlement dans la salon des règles", inline=False)
     await member.send(embed=embed)
+    #Envoie d'un message dans la salon bla bla
+    channel = penbot.get_channel(1000413429758185472)
+    channel_message = f"Hey {member.mention} ! Bienvenue sur ce magnifique serveur 🥳"
+    await channel.send(channel_message)
+    await penbot.process_commands(member)
 
 #Ajout des réactions dans les salons annonces et events
 @penbot.event
