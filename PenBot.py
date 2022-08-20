@@ -16,7 +16,7 @@ penbot_intents = discord.Intents.all()
 activity = discord.Activity(type=discord.ActivityType.streaming, name="Internet", url='https://twitch.tv/penbot')
 #Création de l'instance
 penbot = commands.Bot(command_prefix="pb$", description="Coded by PenTaist#8589", activity=activity ,intents=penbot_intents)
-#Suppression de la commande help afin de la personnaliser
+#Suppression des commandes help et youtube afin de les modifier
 penbot.remove_command("help")
 penbot.remove_command("youtube")
 #Token du bot
@@ -31,7 +31,7 @@ async def on_ready():
 @penbot.event
 async def on_member_join(member):
     channel = penbot.get_channel(1000413429758185472)
-    await channel.send(f"Hey {member.mention}")
+    await channel.send(f"Hey {member.mention} ! Bienvenue sur ce magnifique serveur 🥳")
 
 #Envoie d'un message privé aux nouveaux membres
 @penbot.event
@@ -134,7 +134,7 @@ async def on_command_error(ctx, error):
         logging.error(' Error : INVALID PERMISSIONS')
         logging.critical('----------------------------------------------------')
 
-#Commande help pour les membres
+#Commande help
 @penbot.command()
 async def help(ctx):
     embed = discord.Embed(title="Voici la liste de toutes les commandes disponnibles", color=discord.Color.blue())
@@ -299,7 +299,7 @@ async def rm(ctx, number: int):
     logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
     logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
     logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$del {number}')
+    logging.info(f' Command : pb$rm {number}')
     logging.info('----------------------------------------------------')
 
 #Commande rename
