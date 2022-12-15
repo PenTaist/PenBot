@@ -53,18 +53,6 @@ async def on_message(message):
     emoji_annonces9 = '🎥'
     emoji_annonces10 = '😻'
 
-    #Emojis messages events
-    emoji_event1 = '🥳'
-    emoji_event2 = '😎'
-    emoji_event3 = '😍'
-    emoji_event4 = '🤯'
-    emoji_event5 = '👽'
-    emoji_event6 = '👾'
-    emoji_event7 = '💎'
-    emoji_event8 = '👋'
-    emoji_event9 = '🎱'
-    emoji_event10 = '📀'
-
     # Réactions messages dans le salon annonces
     if message.channel.id == 1010309001092808774:
         await message.add_reaction(emoji_annonces1)
@@ -86,28 +74,7 @@ async def on_message(message):
         await message.add_reaction(emoji_annonces9)
     if message.channel.id == 1010309001092808774:
         await message.add_reaction(emoji_annonces10)
-
-    #Réactions messages dans le salon events
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event1)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event2)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event3)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event4)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event5)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event6)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event7)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event8)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event9)
-    if message.channel.id == 1010309020097187960:
-        await message.add_reaction(emoji_event10)
+        
     await penbot.process_commands(message)
 
 #Messages d'erreur en cas de commande incorrecte ou de permissions inssufisantes
