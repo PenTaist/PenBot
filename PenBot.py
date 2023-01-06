@@ -30,6 +30,13 @@ async def on_ready():
 #Envoie d'un message de bienvenue pour les nouveaux membres dans le salon bla bla
 @penbot.event
 async def on_member_join(member):
+    channel = penbot.get_channel(1000413429758185472)
+    await channel.send(f"Hey {member.mention} ! Bienvenue sur ce magnifique serveur 🥳")
+    await penbot.process_commands(member)
+
+#Envoie d'un message privé aux nouveaux membres
+@penbot.event
+async def on_member_join(member):
     embed = discord.Embed(title="Bienvenue sur le serveur PenTaist - Community !", color=discord.Color.blue())
     embed.add_field(name="Afin d'accèder à l'intégralité du serveur", value="Veuillez vérifier votre compte dans le salon de vérification puis accepter le règlement dans la salon des règles", inline=False)
     await member.send(embed=embed)
@@ -37,45 +44,7 @@ async def on_member_join(member):
     channel = penbot.get_channel(1000413429758185472)
     channel_message = f"Hey {member.mention} ! Bienvenue sur ce magnifique serveur 🥳"
     await channel.send(channel_message)
-    
-#Ajout des réactions dans les salons annonces et events
-@penbot.event
-async def on_message(message):
-    # Emojis messages annonces
-    emoji_annonces1 = '📢'
-    emoji_annonces2 = '🤣'
-    emoji_annonces3 = '🤑'
-    emoji_annonces4 = '🤖'
-    emoji_annonces5 = '👨‍💻'
-    emoji_annonces6 = '🤘'
-    emoji_annonces7 = '👀'
-    emoji_annonces8 = '⚽'
-    emoji_annonces9 = '🎥'
-    emoji_annonces10 = '😻'
-
-    # Réactions messages dans le salon annonces
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces1)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces2)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces3)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces4)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces5)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces6)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces7)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces8)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces9)
-    if message.channel.id == 1010309001092808774:
-        await message.add_reaction(emoji_annonces10)
-        
-    await penbot.process_commands(message)
+    await penbot.process_commands(member)
 
 #Messages d'erreur en cas de commande incorrecte ou de permissions inssufisantes
 @penbot.event
@@ -84,20 +53,10 @@ async def on_command_error(ctx, error):
         arguments_message = "Commande Incorrecte !"
         arguments_embed = discord.Embed(title=arguments_message, color=discord.Color.red())
         await ctx.send(embed=arguments_embed, delete_after=5)
-        logging.basicConfig(level=logging.ERROR, filename='logs/errors.log')
-        logging.error(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-        logging.error(' User : ' + str(ctx.author))
-        logging.error(' Error : INVALID COMMAND')
-        logging.critical('----------------------------------------------------')
     if isinstance(error, commands.MissingPermissions):
         permissions_messages = "Tu n'a pas les permissions requises !"
         permissions_embed = discord.Embed(title=permissions_messages, color=discord.Color.red())
         await ctx.send(embed=permissions_embed, delete_after=5)
-        logging.basicConfig(level=logging.ERROR, filename='logs/errors.log')
-        logging.error(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-        logging.error(' User : ' + str(ctx.author))
-        logging.error(' Error : INVALID PERMISSIONS')
-        logging.critical('----------------------------------------------------')
 
 #Commande help
 @penbot.command()
@@ -110,25 +69,12 @@ async def help(ctx):
 
     await ctx.send(embed=embed)
 
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/basic_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$help')
-    logging.info('----------------------------------------------------')
-
 #Commande ping
 @penbot.command()
 async def ping(ctx):
     ping_message = "Pong !"
     ping_embed = discord.Embed(title=ping_message, color=discord.Color.blue())
     await ctx.send(embed=ping_embed, delete_after=5)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/basic_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$ping')
-    logging.info('----------------------------------------------------')
 
 #Commande serverinfo
 @penbot.command()
@@ -147,12 +93,6 @@ async def serverinfos(ctx):
     serverinfos_embed.add_field(name="Salons textuels :", value=f"{text_channels}", inline=True)
     serverinfos_embed.add_field(name="Salons vocaux :", value=f"{voice_channels}", inline=True)
     await ctx.send(embed=serverinfos_embed)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/basic_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$serverinfos')
-    logging.info('----------------------------------------------------')
 
 #Commandes ban
 @penbot.command()
@@ -166,12 +106,6 @@ async def ban(ctx, user: discord.Member, *reason):
         top_role_message = "Impossible de ban cet utilisateur !"
         top_role_embed = discord.Embed(title=top_role_message, color=discord.Color.red())
         await ctx.send(embed=top_role_embed, delete_after=5)
-        logging.basicConfig(level=logging.ERROR, filename='logs/errors.log')
-        logging.error(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-        logging.error(' User : ' + str(ctx.author))
-        logging.error(' Command : pb$ban')
-        logging.error(' Error : INVALID PERMISSIONS')
-        logging.critical('----------------------------------------------------')
     if reason == "":
         no_reason_embed = discord.Embed(title="Veuillez spécifier la raison !", color=discord.Color.red())
         no_reason_embed.add_field(name="Utilisation", value="pb$ban MEMBRE RAISON")
@@ -182,12 +116,6 @@ async def ban(ctx, user: discord.Member, *reason):
     await user.send(embed=mp_ban_embed)
     await ctx.guild.ban(user, reason=reason)
     await ctx.send(embed=embed)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(author))
-    logging.info(f' Command : pb$ban {user} {reason}')
-    logging.info('----------------------------------------------------')
 
 #Commande unban
 @penbot.command()
@@ -207,11 +135,6 @@ async def unban(ctx, user, *reason):
         if i.user.name == userName and i.user.discriminator == userID:
             await ctx.guild.unban(i.user, reason = reason)
             await ctx.send(embed=unban_embed)
-            logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-            logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-            logging.info(' User : ' + str(ctx.author))
-            logging.info(f' Command : pb$unban {user} {reason}')
-            logging.info('----------------------------------------------------')
             return
         await ctx.send(embed=unban_error_embed, delete_after=5)
 
@@ -227,12 +150,6 @@ async def kick(ctx, user: discord.Member, *reason):
         top_role_message = "Impossible de kick cet utilisateur !"
         top_role_embed = discord.Embed(title=top_role_message, color=discord.Color.red())
         await ctx.send(embed=top_role_embed, delete_after=5)
-        logging.basicConfig(level=logging.ERROR, filename='logs/errors.log')
-        logging.error(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-        logging.error(' User : ' + str(ctx.author))
-        logging.error(' Command : pb$kick')
-        logging.error(' Error : INVALID PERMISSIONS')
-        logging.critical('----------------------------------------------------')
     if reason == "":
         no_reason_embed = discord.Embed(title="Veuillez spécifier la raison !", color=discord.Color.red())
         no_reason_embed.add_field(name="Utilisation", value="pb$kick MEMBRE RAISON")
@@ -243,12 +160,6 @@ async def kick(ctx, user: discord.Member, *reason):
     await user.send(embed=mp_kick_embed)
     await ctx.guild.kick(user, reason=reason)
     await ctx.send(embed=embed)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(author))
-    logging.info(f' Command : pb$kick {user} {reason}')
-    logging.info('----------------------------------------------------')
 
 #Commande rm
 @commands.has_permissions(manage_messages=True)
@@ -260,12 +171,6 @@ async def rm(ctx, number: int):
     for message in messages:
         await message.delete()
     await ctx.send(embed=clear_embed, delete_after=5)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$rm {number}')
-    logging.info('----------------------------------------------------')
 
 #Commande rename
 @penbot.command()
@@ -276,13 +181,6 @@ async def rename(ctx, member: discord.Member, nick):
 
     await member.edit(nick=nick)
     await ctx.send(embed=nick_embed)
-
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$rename {member} {nick}')
-    logging.info('----------------------------------------------------')
 
 #Commande roleadd
 @penbot.command()
@@ -295,12 +193,6 @@ async def roleadd(ctx, user : discord.Member, *, role : discord.Role):
         return await ctx.send(embed=addrole_error_embed)
     await user.add_roles(role)
     await ctx.send(embed=addrole_embed)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$roladd {user} {role}')
-    logging.info('----------------------------------------------------')
 
 @penbot.command()
 @commands.has_permissions(administrator=True)
@@ -312,12 +204,6 @@ async def roledel(ctx, user : discord.Member, *, role : discord.Role):
         return await ctx.send(delrole_error_embed)
     await user.remove_roles(role)
     await ctx.send(embed=delrole_embed)
-    #Systeme de logs
-    logging.basicConfig(level=logging.INFO, filename='logs/mod_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$roldel {user} {role}')
-    logging.info('----------------------------------------------------')
 
 #Commande dog
 @penbot.command()
@@ -328,12 +214,6 @@ async def dog(ctx):
    embed = discord.Embed(title="Coucou le chien !", color=discord.Color.purple())
    embed.set_image(url=dogjson['link'])
    await ctx.send(embed=embed)
-   # Systeme de logs
-   logging.basicConfig(level=logging.INFO, filename='logs/fun_commands.log')
-   logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-   logging.info(' User : ' + str(ctx.author))
-   logging.info(f' Command : pb$dog')
-   logging.info('----------------------------------------------------')
 
 #Commande cat
 @penbot.command()
@@ -344,35 +224,27 @@ async def cat(ctx):
    embed = discord.Embed(title="Ho un chat !", color=discord.Color.purple())
    embed.set_image(url=dogjson['link'])
    await ctx.send(embed=embed)
-   logging.basicConfig(level=logging.INFO, filename='logs/fun_commands.log')
-   logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-   logging.info(' User : ' + str(ctx.author))
-   logging.info(f' Command : pb$cat')
-   logging.info('----------------------------------------------------')
 
 #Commande gif
 @penbot.command(pass_context=True)
 async def gif(ctx, *, search):
+    api_key = "CLE API"
+
     embed = discord.Embed(colour=discord.Colour.purple())
     session = aiohttp.ClientSession()
 
     if search == '':
-        response = await session.get('https://api.giphy.com/v1/gifs/random?api_key=CLE_API')
+        response = await session.get(f'https://api.giphy.com/v1/gifs/random?api_key={api_key}')
         data = json.loads(await response.text())
         embed.set_image(url=data['data']['images']['original']['url'])
     else:
         search.replace(' ', '+')
-        response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key=CLE API&limit=10')
+        response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + f'&api_key={api_key}&limit=10')
         data = json.loads(await response.text())
         gif_choice = random.randint(0, 9)
         embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
     await session.close()
     await ctx.send(embed=embed)
-    logging.basicConfig(level=logging.INFO, filename='logs/fun_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(f' Command : pb$gif {search}')
-    logging.info('----------------------------------------------------')
 
 #Commande joke
 @penbot.command()
@@ -388,12 +260,6 @@ async def joke(ctx):
 
     await ctx.send(embed=embed)
 
-    logging.basicConfig(level=logging.INFO, filename='logs/fun_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$joke')
-    logging.info('----------------------------------------------------')
-
 #Commande github
 @penbot.command()
 async def github(ctx):
@@ -401,12 +267,6 @@ async def github(ctx):
     github_embed.add_field(name="GitHub - PenTaist", value="https://github.com/PenTaist", inline=False)
 
     await ctx.send(embed=github_embed)
-
-    logging.basicConfig(level=logging.INFO, filename='logs/social_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$github')
-    logging.info('----------------------------------------------------')
 
 #Commande youtube
 @penbot.command()
@@ -416,12 +276,6 @@ async def youtube(ctx):
 
     await ctx.send(embed=youtube_embed)
 
-    logging.basicConfig(level=logging.INFO, filename='logs/social_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$youtube')
-    logging.info('----------------------------------------------------')
-
 #Commande website
 @penbot.command()
 async def website(ctx):
@@ -429,12 +283,6 @@ async def website(ctx):
     website_embed.add_field(name="WebSite - PenTaist", value="https://www.pentaist.tk/", inline=False)
 
     await ctx.send(embed=website_embed)
-
-    logging.basicConfig(level=logging.INFO, filename='logs/social_commands.log')
-    logging.info(' Date : ' + str(strftime('%Y-%m-%d %H:%M:%S', gmtime())))
-    logging.info(' User : ' + str(ctx.author))
-    logging.info(' Command : pb$website')
-    logging.info('----------------------------------------------------')
 
 #Lancement du bot
 penbot.run(token)
